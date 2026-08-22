@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        // step4 : Input and State
+        function App() {
+            const [amount, setAmount] = React.useState();
+            const [flipped, setFlipped] = React.useState(false); //true or false인 변수값을 저장
+            const onChange = (event) => {
+                setAmount(event.target.value);
+            };
+            const reset = () => setAmount(0);
+            const onFlip = () => setFlipped((current) => !current); //flipped이 false면 true 값을 return하고 true면 false값을 return
+            return (
+                <div>
+                    <h1 className="hi">Super Converter</h1>
+                    <div>
+                        <label htmlFor="minutes">Minutes</label>
+                        <input 
+                            value={flipped ? amount * 60 : amount} 
+                            id="minutes" 
+                            placeholder="Minutes" 
+                            type="number" 
+                            onChange={onChange}
+                            disabled={flipped === true} //javascript의 조건문을 여기서 쓸 수 있음
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="hours">Hours</label>
+                        <input 
+                            value={flipped ? amount : Math.round(amount / 60)} //문제점 : input이 enabled가 돼서 값을 입력하면 해당 input에 무엇을 입력하던 값은 0으로 출력되고 Minutes에 변환된 값이 출력된다. 따라서 삼항연산자로 flipped 상태가 true라면 단위변환을 보여주지 않음
+                            id="hours"
+                            placeholder="Hours" 
+                            type="number" 
+                            onChange={onChange}
+                            disabled={!flipped} //javascript의 조건문을 여기서 쓸 수 있음
+                        />    
+                    </div>
+                    <button onClick={reset}>Reset</button>
+                    <button onClick={onFlip}>Flip</button>
+                </div>
+            );
+        }
+
+
+        const root = document.getElementById("root");
+        ReactDOM.render(<App />, root);
+    </script>
+</html>

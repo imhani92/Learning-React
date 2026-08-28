@@ -13,7 +13,7 @@
             const [amount, setAmount] = React.useState();
             const [flipped, setFlipped] = React.useState(false); //true or false인 변수값을 저장
             const onChange = (event) => {
-                setAmount(event.target.value);
+                setAmount(event.target.value); 
             };
             const reset = () => setAmount(0);
             const onFlip = () => setFlipped((current) => !current); //flipped이 false면 true 값을 return하고 true면 false값을 return

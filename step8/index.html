@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        //step8 : react memo
+        function Btn({tt, changeValue}){ //2번 : 컴포넌트 props에 부모 컨포넌트에서 설정한 onClick 이벤트 이름을 적고 반드시 이름은 동일해야한다 {changeValue}
+            console.log(tt, "was rendered");
+            return <button 
+                onClick={changeValue} //3번 : onClick이벤트는 이곳에 넣어야 이벤트리스너가 되는거지 아래 <Btn /> 컴포넌트에 추가하면 그냥 props가 된다
+                style={{
+                    backgroundColor:"tomato",
+                    color:"white",
+                    padding:"10px 20px",
+                    borderRadius:10,
+                    border:0,
+                    fontSize:16, 
+                }}
+            >
+                {tt} {/* props에 중괄호를 사용해서 데이터를 직접 받아올 경우 */}
+            </button>
+        }
+        const MemorizedBtn = React.memo(Btn); // 4번 : 변경되지 않는 "Continue" 버튼의 re-rendering을 막기 위해 사용
+        function App() {
+            const [value, setValue] = React.useState("Save Changes");
+            const changeValue = () => setValue("Revert Changes");
+            
+            return (
+                <div>
+                    <MemorizedBtn tt={value} changeValue={changeValue}/> {/* 1번 : 이곳에 들어가는 onClick 이벤트는 단지 props 이고, name을 원하는대로 설정 후 2번에 추가한다. */}
+                    <MemorizedBtn tt="Continue" /> {/* 4번 : memo를 사용할 변수의 이름을 사용 */}
+                </div>
+            );
+        }
+
+
+        const root = document.getElementById("root");
+        ReactDOM.render(<App />, root);
+    </script>
+</html>

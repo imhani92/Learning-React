@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        // step7 : 
+        function Btn({tt, data}){ //text 대신 중괄호를 열어 그 안에 tt를 바로 받아 올 수 있다.{tt}
+            console.log(tt, data);
+            return <button style={{
+                backgroundColor:"tomato",
+                color:"white",
+                padding:"10px 20px",
+                borderRadius:10,
+                border:0,
+                fontSize: data ? 18 : 16, //style에 삼항연산자를 사용하여 컴포넌트 마다 각각 다른 사이즈를 적용할 수 있다
+            }}>
+                {/* text.tt */} {/* function의 props를 갖고옴 */}
+                {tt} {/* props에 중괄호를 사용해서 데이터를 직접 받아올 경우 */}
+            </button>
+        }
+        function App() {
+            return (
+                <div>
+                    <Btn tt="Save Changes" data={true} /> {/* Btn에 들어가는 "tt"는 내가 원하는대로 이름을 설정할 수 있으며 이는 Btn 컴포넌트의 props(text)에 반영된다 */}
+                    <Btn tt="Continue" data={false}/>
+                </div>
+            );
+        }
+
+
+        const root = document.getElementById("root");
+        ReactDOM.render(<App />, root);
+    </script>
+</html>

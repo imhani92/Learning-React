@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script> <!-- prop types js 추가 -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        //step8 : prop types
+        function Btn({ txt, fontSize = 14 }){ //prop에 default value값을 설정할 수 있다. fontSize에 기본값 14 설정
+            return <button 
+                style={{
+                    backgroundColor:"tomato",
+                    color:"white",
+                    padding:"10px 20px",
+                    borderRadius:10,
+                    border:0,
+                    fontSize, 
+                }}
+            >
+                {txt} 
+            </button>
+        };
+        
+        //이곳에 우리가 지정한 prop의 type이 string인지 number인지 등을 지정할 수 있다
+        Btn.propTypes = {
+            txt: PropTypes.string, //내가 naming한 prop txt의 type을 string으로 지정할 수 있다
+            fontSize: PropTypes.number.isRequired,
+            //컴포넌트에 설정한 두가지 prop들을 정확히 갖고 render될 것을 확실히 하고 싶다면 .isRequired를 사용하면 된다
+            //따라서 누군가 Btn 컴포넌트를 어디선가 render한다면 반드시 fontSize라는 prop가 있어야만한다
+        };
+
+        function App() {
+            return (
+                <div>
+                    <Btn txt="Save Changes" fontSize={18} />
+                    <Btn txt="Save Changes2" />
+                </div>
+            );
+        };
+
+
+        const root = document.getElementById("root");
+        ReactDOM.render(<App />, root);
+    </script>
+</html>
